@@ -16,6 +16,7 @@ import gc
 from machine import Pin, UART, SD, RTC, deepsleep
 from L76GNSS import L76GNSS
 from pytrack import Pytrack
+import pycom
 
 # mounting sd card
 sd = SD()
@@ -68,6 +69,18 @@ def sync_time_from_gps(timeout=60):
     # Getting the time from the GPS chip
     py = Pytrack()
     l76 = L76GNSS(py, timeout=timeout)
+    if WAIT_FOR_GPS is True:
+        while True:
+            lat,lon= l76.coordinates(debug=True)
+            if lat is None:
+                print("no gps")
+                pycom.rgbled(0xFFA500)
+                time.sleep(5)
+                pycom.rgbled(0x7f0000)
+            else:
+                pycom.rgbled(0x007f00)
+                print(lat + " " + lon)
+                break
     time_gps = l76.get_time(debug=True)
     hh = int(time_gps[:2])
     mm = int(time_gps[2:4])
@@ -106,8 +119,9 @@ def write_to_file(pm1 = 0, pm2_5=0, pm10 = 0):
 #
 ################################################################################
 '''
-
-sync_time_from_gps(120)
+if WAIT_FOR_GPS is True:
+    pycom.rgbled(0x7f0000)
+sync_time_from_gps(60)
 
 while True:
 

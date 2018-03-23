@@ -105,7 +105,7 @@ class L76GNSS:
                 gc.collect()
                 break
             nmea += self._read().lstrip(b'\n\n').rstrip(b'\n\n')
-            gngll_idx = nmea.find(b'GPRMC')
+            gngll_idx = nmea.find(b'GPGGA')
             if gngll_idx >= 0:
                 gngll = nmea[gngll_idx:]
                 e_idx = gngll.find(b'\r\n')

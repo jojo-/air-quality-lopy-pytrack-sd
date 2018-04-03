@@ -6,7 +6,8 @@ The sensor is monitoring PM 1, 2.5 and 10. It is based on
 - a LoPy for processing the data from the PM sensor;
 - a PyTrack expansion board to sync the RTC of the LoPy using GPS and to write the data on an SD card.
 
-Authors: Johan Barthelemy, Hugh Forehead, Nicolas Verstaevel
+**Authors:** SMART IoT Lab - SMART Infrastructure Facility - University of Wollongong
 
-SMART IoT Lab - SMART Infrastructure Facility - University of Wollongong
+Johan Barthelemy, Hugh Forehead and Nicolas Verstaevel
+
 

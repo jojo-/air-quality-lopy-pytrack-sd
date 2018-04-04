@@ -181,6 +181,10 @@ class L76GNSS:
         else:
             return(lat_d, lon_d, gps_time, gps_altitude, valid, num_satellites)
 
+    def stop(self,pytrack):
+        ANSELC_ADDR = const(0x18E)
+        pytrack.poke_memory(ANSELC_ADDR, ~(1 << 7))
+
     #parser for UTC time and date >> Reads GPRMC
     def get_datetime(self, debug=True):
         lat_d, lon_d, gps_time, valid, gps_date, rmc_idx, debug_timeout = None, None, None, None, None, -1, False
@@ -214,6 +218,7 @@ class L76GNSS:
                 rmc = nmea[rmc_idx:]
                 rmc_e_idx = rmc.find(b'\r\n')
                 if rmc_e_idx >= 0:
+                    print(nmea)
                     try:
                         rmc = rmc[:rmc_e_idx].decode('ascii')
                         rmc_s = rmc.split(',')

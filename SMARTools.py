@@ -21,7 +21,7 @@ def sync_time_from_GPS(verbose=False):
     rtc = machine.RTC()
     if verbose:
         print('Aquiring GPS signal....')
-    pycom.rgbled(0x7f0000)
+    set_LED_red()
     while (True):
        gps_datetime = l76.get_datetime()
        #case valid readings
@@ -40,9 +40,17 @@ def sync_time_from_GPS(verbose=False):
     l76.stop(py)
     if verbose:
         print('RTC Set from GPS to UTC:', rtc.now())
+    time.sleep(2)
+    set_LED_off()
 
 def set_LED_green():
     pycom.rgbled(0x007f00)
-    
+
 def set_LED_red():
     pycom.rgbled(0x7f0000)
+
+def set_LED_off():
+    pycom.rgbled(0x000000)
+
+def set_LED_purple():
+    pycom.rgbled(0x800080)

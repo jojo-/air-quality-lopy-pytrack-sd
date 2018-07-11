@@ -1,4 +1,4 @@
-from pytrack import Pytrack
+#from pytrack import Pytrack
 from machine import SD
 import os
 
@@ -11,4 +11,4 @@ class FileWriter(object):
     def _write(self, filepath,mode,data):
         f = open(filepath,mode)
         f.write(data + "\n")
-        f.close
+        f.close()
